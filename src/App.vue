@@ -3,20 +3,21 @@ import { computed } from "vue";
 import { RouterView, useRoute } from "vue-router";
 import AppHeader from "./components/layout/AppHeader.vue";
 import AppFooter from "./components/layout/AppFooter.vue";
+import BackToTop from "./components/ui/BackToTop.vue";
 
 const route = useRoute();
-const snap = computed(() => route.name === "home"); // snap solo en Home
+const snap = computed(() => route.name === "home");
 </script>
 
 <template>
   <div class="app">
     <AppHeader />
-    
+
     <div id="appScroll" class="scroll" :class="{ snap }">
       <Transition name="page" mode="out-in">
         <RouterView />
       </Transition>
-
+      <BackToTop />
       <AppFooter />
     </div>
   </div>
@@ -42,7 +43,10 @@ const snap = computed(() => route.name === "home"); // snap solo en Home
 /* transición entre páginas (routes) */
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    filter 0.25s ease;
 }
 .page-enter-from,
 .page-leave-to {

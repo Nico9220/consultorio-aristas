@@ -17,8 +17,9 @@ const puntos = [
         <RevealOnScroll>
           <h2 class="h2">Sobre Nosotros</h2>
           <p class="p">
-            En Aristas Odontología Integrada brindamos atención profesional con un enfoque humano y personalizado.
-            Nuestro objetivo es que te sientas acompañado/a en cada etapa del tratamiento.
+            En Aristas Odontología Integrada brindamos atención profesional con
+            un enfoque humano y personalizado. Nuestro objetivo es que te
+            sientas acompañado/a en cada etapa del tratamiento.
           </p>
         </RevealOnScroll>
 
@@ -38,7 +39,9 @@ const puntos = [
         <RevealOnScroll :delay="520">
           <div class="actions">
             <BaseButton to="/contacto" size="lg">Conocenos Más</BaseButton>
-            <BaseButton to="/turnos" variant="ghost" size="lg">Reservar Turno</BaseButton>
+            <BaseButton to="/turnos" variant="ghost" size="lg"
+              >Reservar Turno</BaseButton
+            >
           </div>
         </RevealOnScroll>
       </div>
@@ -59,7 +62,7 @@ const puntos = [
           <div class="stats card">
             <div class="stat">
               <div class="n">+10</div>
-              <div class="s">Años de experiencia (si aplica)</div>
+              <div class="s">Años de experiencia</div>
             </div>
             <div class="stat">
               <div class="n">100%</div>
@@ -77,132 +80,152 @@ const puntos = [
 </template>
 
 <style scoped>
-.section{
-  display:flex;
-  align-items:center;
+.section {
+  display: flex;
+  align-items: center;
   padding: 56px 0;
 }
 
-.about{
+.about {
   background:
-    radial-gradient(900px 420px at 20% 20%, rgba(70,188,195,.22), transparent 60%),
-    radial-gradient(900px 520px at 90% 60%, rgba(31,127,134,.16), transparent 55%),
-    linear-gradient(180deg, rgba(233,247,248,.35), transparent 55%);
+    radial-gradient(
+      900px 420px at 20% 20%,
+      rgba(70, 188, 195, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 520px at 90% 60%,
+      rgba(31, 127, 134, 0.16),
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(233, 247, 248, 0.35), transparent 55%);
 }
 
-.wrap{
-  display:grid;
-  grid-template-columns: 1.1fr .9fr;
+.wrap {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 22px;
-  align-items:center;
+  align-items: center;
 }
 
-.left{ padding-right: 6px; }
+.left {
+  padding-right: 6px;
+}
 
-.list{
+.list {
   margin-top: 18px;
-  display:grid;
+  display: grid;
   gap: 10px;
 }
 
-.item{
+.item {
   padding: 14px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   gap: 12px;
-  background: rgba(255,255,255,.75);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(10px);
 }
 
-.dot{
+.dot {
   width: 38px;
   height: 38px;
   border-radius: 14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: rgba(233,247,248,.9);
-  border: 1px solid rgba(31,127,134,.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(233, 247, 248, 0.9);
+  border: 1px solid rgba(31, 127, 134, 0.16);
   color: var(--brand-700);
   font-weight: 900;
 }
 
-.txt{
+.txt {
   font-weight: 700;
   color: #2c5a63;
 }
 
-.actions{
+.actions {
   margin-top: 18px;
-  display:flex;
+  display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.right{
-  display:grid;
+.right {
+  display: grid;
   gap: 12px;
 }
 
-.photo{ padding: 14px; }
-.ph{
+.photo {
+  padding: 14px;
+}
+.ph {
   height: 280px;
   border-radius: 16px;
-  border: 1px solid rgba(31,127,134,.14);
-  background: linear-gradient(135deg, rgba(70,188,195,.22), rgba(255,255,255,.85));
+  border: 1px solid rgba(31, 127, 134, 0.14);
+  background: linear-gradient(
+    135deg,
+    rgba(70, 188, 195, 0.22),
+    rgba(255, 255, 255, 0.85)
+  );
   position: relative;
-  overflow:hidden;
+  overflow: hidden;
 }
-.ph::after{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), transparent 45%);
+.ph::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.9),
+    transparent 45%
+  );
   transform: rotate(14deg);
 }
 
-.glass{
-  position:absolute;
+.glass {
+  position: absolute;
   left: 12px;
   bottom: 12px;
   right: 12px;
-  background: rgba(255,255,255,.78);
-  border: 1px solid rgba(31,127,134,.16);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(31, 127, 134, 0.16);
   border-radius: 16px;
   padding: 12px;
   backdrop-filter: blur(10px);
 }
-.label{
+.label {
   font-weight: 850;
   color: #23464f;
 }
-.sub{
+.sub {
   margin-top: 2px;
   color: var(--muted);
   font-weight: 650;
   font-size: 13px;
 }
 
-.stats{
+.stats {
   padding: 14px;
-  display:grid;
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  background: rgba(255,255,255,.7);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
 }
-.stat{
-  border: 1px solid rgba(31,127,134,.14);
+.stat {
+  border: 1px solid rgba(31, 127, 134, 0.14);
   border-radius: 16px;
   padding: 12px;
-  background: rgba(233,247,248,.45);
+  background: rgba(233, 247, 248, 0.45);
 }
-.n{
+.n {
   font-size: 20px;
   font-weight: 900;
   color: #23464f;
 }
-.s{
+.s {
   margin-top: 4px;
   color: var(--muted);
   font-weight: 650;
@@ -210,9 +233,15 @@ const puntos = [
   line-height: 1.3;
 }
 
-@media (max-width: 920px){
-  .wrap{ grid-template-columns: 1fr; }
-  .stats{ grid-template-columns: 1fr; }
-  .ph{ height: 240px; }
+@media (max-width: 920px) {
+  .wrap {
+    grid-template-columns: 1fr;
+  }
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  .ph {
+    height: 240px;
+  }
 }
 </style>

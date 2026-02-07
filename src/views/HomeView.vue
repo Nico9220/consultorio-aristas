@@ -12,8 +12,6 @@ useScrollSpy({
   sectionIds: ["inicio", "servicios", "nosotros", "turnos", "contacto", "cta"],
   rootSelector: "#appScroll",
 });
-
-
 </script>
 <template>
   <HeroSection />
@@ -23,4 +21,3 @@ useScrollSpy({
   <ContactoSection />
   <CTASection />
 </template>
-

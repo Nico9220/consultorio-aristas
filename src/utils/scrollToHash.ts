@@ -1,4 +1,7 @@
-export function scrollToHash(hash: string, behavior: ScrollBehavior = "smooth") {
+export function scrollToHash(
+  hash: string,
+  behavior: ScrollBehavior = "smooth",
+) {
   const id = decodeURIComponent(hash).replace("#", "");
   if (!id) return;
 
@@ -13,4 +16,3 @@ export function scrollToHash(hash: string, behavior: ScrollBehavior = "smooth") 
 
   container.scrollTo({ top: y, behavior });
 }
-

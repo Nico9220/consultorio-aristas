@@ -13,7 +13,7 @@ const props = withDefaults(
     once: true,
     delay: 0,
     y: 18,
-  }
+  },
 );
 
 const el = ref<HTMLElement | null>(null);
@@ -33,12 +33,11 @@ onMounted(() => {
         visible.value = false;
       }
     },
-    { threshold: props.threshold }
+    { threshold: props.threshold },
   );
 
   if (el.value) obs.observe(el.value);
 });
-
 
 onBeforeUnmount(() => obs?.disconnect());
 </script>
@@ -58,21 +57,29 @@ onBeforeUnmount(() => obs?.disconnect());
 </template>
 
 <style scoped>
-.reveal{
+.reveal {
   opacity: 0;
   transform: translate3d(0, var(--y), 0);
   filter: blur(10px);
-  transition: opacity .7s ease, transform .7s ease, filter .7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease,
+    filter 0.7s ease;
   transition-delay: var(--delay);
   will-change: opacity, transform, filter;
 }
-.reveal.visible{
+.reveal.visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
   filter: blur(0);
 }
 
-@media (prefers-reduced-motion: reduce){
-  .reveal{ transition:none; opacity:1; transform:none; filter:none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
 </style>
