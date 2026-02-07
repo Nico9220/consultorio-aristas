@@ -1,0 +1,103 @@
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/effect-fade";
+
+:root{
+  --bg: #f6fbfc;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+
+  --brand-700: #1f7f86;
+  --brand-600: #2ea8b0;
+  --brand-500: #46bcc3;
+  --brand-200: #cfeff1;
+  --brand-100: #e9f7f8;
+
+  --shadow: 0 10px 30px rgba(17, 24, 39, .08);
+  --radius: 18px;
+
+  --container: 1100px;
+  --header-h: 76px;
+}
+
+*{ box-sizing: border-box; }
+html, body{ margin:0; padding:0; }
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 500px at 20% 0%, var(--brand-100), transparent 60%),
+              radial-gradient(900px 450px at 90% 15%, rgba(70,188,195,.18), transparent 55%),
+              var(--bg);
+}
+
+a{ color: inherit; text-decoration: none; }
+img{ max-width: 100%; display:block; }
+
+.container{
+  width: min(var(--container), 92vw);
+  margin: 0 auto;
+}
+
+.section{
+  padding: 56px 0;
+}
+
+.h2{
+  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(26px, 3vw, 36px);
+  margin: 0 0 10px;
+  letter-spacing: .2px;
+}
+
+.p{
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.card{
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(31, 127, 134, .12);
+}
+
+:root{
+  --header-h: 76px;
+}
+
+/* Secciones a pantalla completa */
+.snap-section{
+  min-height: calc(100vh - var(--header-h));
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  scroll-margin-top: 12px;
+}
+
+/* Mejor soporte mobile moderno */
+@supports (height: 100dvh){
+  .snap-section{ min-height: calc(100dvh - var(--header-h)); }
+  .scroll{ height: calc(100dvh - var(--header-h)); }
+}
+
+.snap-footer{
+  scroll-snap-align: end;
+  scroll-snap-stop: normal;
+}
+
+.page-section{
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  align-items: center;      /* centra vertical */
+  justify-content: center;  /* centra horizontal (del bloque principal) */
+  padding-block: clamp(24px, 6vh, 72px);
+  scroll-margin-top: 12px;
+}
+
+@supports (height: 100dvh){
+  .page-section{
+    min-height: calc(100dvh - var(--header-h));
+  }
+}
+
