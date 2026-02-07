@@ -96,10 +96,9 @@ img {
 
 /* Secciones a pantalla completa */
 .snap-section {
-  min-height: calc(100vh - var(--header-h));
   scroll-snap-align: start;
-  scroll-snap-stop: normal;
-  scroll-margin-top: 12px;
+  scroll-snap-stop: always;
+  min-height: calc(100dvh - var(--header-h));
 }
 
 /* Mejor soporte mobile moderno */
@@ -130,4 +129,10 @@ img {
   .page-section {
     min-height: calc(100dvh - var(--header-h));
   }
+}
+
+.page-section.section {
+  display: flex;
+  align-items: center;
+  padding: 56px 0;
 }

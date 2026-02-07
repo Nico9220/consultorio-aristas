@@ -118,6 +118,7 @@ const WHATSAPP_DISPLAY =
   border-top: 1px solid rgba(31, 127, 134, 0.1);
   background: linear-gradient(180deg, transparent, rgba(233, 247, 248, 0.55));
   scroll-snap-align: none;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom));
 }
 
 .grid {
@@ -220,6 +221,7 @@ const WHATSAPP_DISPLAY =
 .bottom {
   border-top: 1px solid rgba(31, 127, 134, 0.1);
   padding: 14px 0;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom));
 }
 .bottomInner {
   display: flex;
