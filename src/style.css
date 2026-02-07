@@ -97,7 +97,6 @@ img {
 /* Secciones a pantalla completa */
 .snap-section {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
   min-height: calc(100dvh - var(--header-h));
 }
 
