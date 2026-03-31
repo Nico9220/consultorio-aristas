@@ -2,7 +2,7 @@
 import { MapPin, Clock, MessageCircle } from "lucide-vue-next";
 
 const ADDRESS = "Las Lajas 527, Plottier, Neuquén";
-const HOURS = "Solicitud de turnos: 8:30 a 12:30";
+const HOURS = "Solicitud de turnos: 15:00 a 19:00";
 
 const WHATSAPP_PHONE = import.meta.env.VITE_WHATSAPP_PHONE as string;
 const WHATSAPP_DISPLAY =
