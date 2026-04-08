@@ -65,6 +65,7 @@ const goTo = async (id: string) => {
       :modules="modules"
       :loop="true"
       effect="fade"
+      :fadeEffect="{ crossFade: true }"
       :speed="900"
       :autoplay="{ delay: 6500, disableOnInteraction: false }"
       :pagination="{ clickable: true }"
@@ -72,7 +73,7 @@ const goTo = async (id: string) => {
       <SwiperSlide v-for="(s, i) in slides" :key="i">
         <div
           class="slide"
-          :class="[s.theme, { hasPhoto: !!s.image }]"
+          :class="s.theme"
           :style="s.image ? { backgroundImage: `url(${s.image})` } : undefined"
         >
           <div class="overlay" />
@@ -80,6 +81,8 @@ const goTo = async (id: string) => {
 
           <div class="container heroInner">
             <div class="heroPanel">
+              <span class="kicker">Aristas Odontología Integrada</span>
+
               <h1 class="title">{{ s.title }}</h1>
               <p class="subtitle">{{ s.subtitle }}</p>
 
@@ -103,22 +106,6 @@ const goTo = async (id: string) => {
                 <div class="chip">Atención personalizada</div>
               </div>
             </div>
-
-            <div class="heroMedia card mediaCard">
-              <div class="photoWrap">
-                <img
-                  v-if="s.image"
-                  class="photo"
-                  :src="s.image"
-                  alt="Consultorio Aristas"
-                />
-                <div v-else class="photoPh">
-                  <div class="caption">Foto real del consultorio</div>
-                </div>
-
-                <div class="badge">Consultorio</div>
-              </div>
-            </div>
           </div>
         </div>
       </SwiperSlide>
@@ -129,14 +116,12 @@ const goTo = async (id: string) => {
 <style scoped>
 .hero {
   position: relative;
-  min-height: calc(100svh - var(--header-h));
   background: #eef5f6;
+  overflow: hidden;
 }
 
-@supports not (height: 100svh) {
-  .hero {
-    min-height: calc(100vh - var(--header-h));
-  }
+.heroSwiper {
+  overflow: hidden;
 }
 
 .heroSwiper,
@@ -151,8 +136,10 @@ const goTo = async (id: string) => {
   overflow: hidden;
   display: flex;
   align-items: center;
+  justify-content: center;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 @supports not (height: 100svh) {
@@ -161,50 +148,34 @@ const goTo = async (id: string) => {
   }
 }
 
-/* fallback visual */
 .slide.a {
   background-image:
     radial-gradient(
       900px 420px at 20% 20%,
-      rgba(70, 188, 195, 0.35),
+      rgba(70, 188, 195, 0.2),
       transparent 60%
     ),
-    radial-gradient(
-      900px 520px at 90% 30%,
-      rgba(31, 127, 134, 0.22),
-      transparent 55%
-    ),
-    linear-gradient(135deg, rgba(233, 247, 248, 0.9), rgba(246, 251, 252, 1));
+    linear-gradient(135deg, rgba(233, 247, 248, 0.7), rgba(246, 251, 252, 0.7));
 }
 
 .slide.b {
   background-image:
     radial-gradient(
       900px 420px at 10% 10%,
-      rgba(46, 168, 176, 0.3),
+      rgba(46, 168, 176, 0.18),
       transparent 60%
     ),
-    radial-gradient(
-      900px 520px at 80% 40%,
-      rgba(70, 188, 195, 0.2),
-      transparent 55%
-    ),
-    linear-gradient(135deg, rgba(246, 251, 252, 1), rgba(233, 247, 248, 0.9));
+    linear-gradient(135deg, rgba(246, 251, 252, 0.66), rgba(233, 247, 248, 0.66));
 }
 
 .slide.c {
   background-image:
     radial-gradient(
       900px 420px at 30% 10%,
-      rgba(31, 127, 134, 0.22),
+      rgba(31, 127, 134, 0.18),
       transparent 60%
     ),
-    radial-gradient(
-      900px 520px at 95% 55%,
-      rgba(70, 188, 195, 0.28),
-      transparent 55%
-    ),
-    linear-gradient(135deg, rgba(233, 247, 248, 0.85), rgba(246, 251, 252, 1));
+    linear-gradient(135deg, rgba(233, 247, 248, 0.66), rgba(246, 251, 252, 0.66));
 }
 
 .overlay {
@@ -212,16 +183,16 @@ const goTo = async (id: string) => {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(
-      1200px 680px at 10% 30%,
-      rgba(0, 0, 0, 0.45),
-      transparent 60%
-    ),
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.58) 0%,
-      rgba(0, 0, 0, 0.28) 55%,
-      rgba(0, 0, 0, 0.12) 100%
+      rgba(10, 26, 30, 0.66) 0%,
+      rgba(10, 26, 30, 0.42) 45%,
+      rgba(10, 26, 30, 0.2) 100%
+    ),
+    radial-gradient(
+      900px 520px at 15% 28%,
+      rgba(17, 87, 94, 0.24),
+      transparent 60%
     );
 }
 
@@ -232,12 +203,12 @@ const goTo = async (id: string) => {
   background:
     radial-gradient(
       700px 380px at 20% 25%,
-      rgba(70, 188, 195, 0.25),
+      rgba(70, 188, 195, 0.16),
       transparent 60%
     ),
     radial-gradient(
       760px 420px at 85% 65%,
-      rgba(31, 127, 134, 0.18),
+      rgba(31, 127, 134, 0.14),
       transparent 60%
     );
 }
@@ -245,13 +216,12 @@ const goTo = async (id: string) => {
 .heroInner {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-  gap: 22px;
+  display: flex;
   align-items: center;
+  justify-content: center;
   min-height: calc(100svh - var(--header-h));
   padding-top: 40px;
-  padding-bottom: 54px;
+  padding-bottom: 72px;
 }
 
 @supports not (height: 100svh) {
@@ -261,41 +231,62 @@ const goTo = async (id: string) => {
 }
 
 .heroPanel {
-  max-width: 760px;
-  padding: 28px;
+  width: min(820px, 100%);
+  padding: 30px 32px;
   border-radius: 30px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0.06)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.kicker {
+  display: inline-flex;
+  margin-bottom: 14px;
+  padding: 0.45rem 0.78rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .title {
   margin: 0 0 14px;
   font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(3rem, 5vw, 5.3rem);
+  font-size: clamp(3.2rem, 5vw, 5.6rem);
   line-height: 0.95;
-  color: #23464f;
+  color: #f7fbfb;
   text-wrap: balance;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
 }
 
 .subtitle {
-  margin: 0;
-  max-width: 52ch;
-  color: #3b5560;
-  font-size: 1.06rem;
+  margin: 0 auto;
+  max-width: 30ch;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.08rem;
   line-height: 1.75;
 }
 
 .actions {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 22px;
+  margin-top: 24px;
 }
 
 .chips {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 18px;
@@ -304,63 +295,16 @@ const goTo = async (id: string) => {
 .chip {
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(233, 247, 248, 0.9);
-  border: 1px solid rgba(31, 127, 134, 0.14);
-  color: #2c5a63;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f3fbfb;
   font-size: 0.84rem;
   font-weight: 750;
-}
-
-.mediaCard {
-  padding: 14px;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
-}
-
-.photoWrap {
-  position: relative;
-  overflow: hidden;
-  border-radius: 22px;
-  border: 1px solid rgba(31, 127, 134, 0.14);
-  background: rgba(255, 255, 255, 0.78);
-}
-
-.photo,
-.photoPh {
-  display: block;
-  width: 100%;
-  height: clamp(320px, 42vw, 470px);
-  object-fit: cover;
-}
-
-.photoPh {
-  background: linear-gradient(
-    135deg,
-    rgba(70, 188, 195, 0.22),
-    rgba(255, 255, 255, 0.85)
-  );
-  position: relative;
-}
-
-.caption,
-.badge {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  padding: 8px 10px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(31, 127, 134, 0.16);
-  color: #2c5a63;
-  font-size: 0.82rem;
-  font-weight: 800;
+  backdrop-filter: blur(6px);
 }
 
 :deep(.swiper-pagination) {
-  bottom: 16px;
+  bottom: 18px;
 }
 
 :deep(.swiper-pagination-bullet) {
@@ -369,26 +313,16 @@ const goTo = async (id: string) => {
 }
 
 @media (max-width: 1180px) {
-  .heroInner {
-    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.85fr);
-    gap: 18px;
-  }
-
   .title {
-    font-size: clamp(2.7rem, 4.6vw, 4.4rem);
+    font-size: clamp(2.8rem, 4.8vw, 4.7rem);
   }
 
-  .photo,
-  .photoPh {
-    height: 360px;
+  .heroPanel {
+    width: min(760px, 100%);
   }
 }
 
 @media (max-width: 860px) {
-  .hero {
-    min-height: auto;
-  }
-
   .heroSwiper,
   :deep(.swiper-wrapper),
   :deep(.swiper-slide) {
@@ -398,40 +332,70 @@ const goTo = async (id: string) => {
   .slide {
     min-height: auto;
     align-items: flex-start;
+    justify-content: stretch;
+    background-position: center;
+  }
+
+  .overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 26, 30, 0.52) 0%,
+        rgba(10, 26, 30, 0.34) 100%
+      ),
+      radial-gradient(
+        700px 420px at 20% 25%,
+        rgba(17, 87, 94, 0.22),
+        transparent 60%
+      );
   }
 
   .heroInner {
-    grid-template-columns: 1fr;
     min-height: auto;
-    gap: 18px;
-    align-items: start;
+    align-items: flex-start;
+    justify-content: stretch;
     padding-top: 18px;
-    padding-bottom: 34px;
+    padding-bottom: 52px;
   }
 
   .heroPanel {
-    max-width: none;
+    width: 100%;
     padding: 22px;
     border-radius: 24px;
+    text-align: left;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.1)
+    );
+  }
+
+  .kicker {
+    margin-bottom: 12px;
+    font-size: 0.8rem;
   }
 
   .title {
-    font-size: clamp(2.2rem, 9vw, 3.2rem);
+    font-size: clamp(2.2rem, 9.6vw, 3.4rem);
     line-height: 1.02;
     margin-bottom: 10px;
   }
 
   .subtitle {
+    margin: 0;
+    max-width: 32ch;
     font-size: 0.98rem;
     line-height: 1.65;
   }
 
   .actions {
+    justify-content: stretch;
     flex-direction: column;
     align-items: stretch;
   }
 
   .chips {
+    justify-content: flex-start;
     gap: 8px;
   }
 
@@ -440,22 +404,12 @@ const goTo = async (id: string) => {
     font-size: 0.78rem;
     padding: 7px 10px;
   }
-
-  .mediaCard {
-    padding: 10px;
-    border-radius: 24px;
-  }
-
-  .photo,
-  .photoPh {
-    height: 240px;
-  }
 }
 
 @media (max-width: 560px) {
   .heroInner {
     padding-top: 14px;
-    padding-bottom: 28px;
+    padding-bottom: 44px;
   }
 
   .heroPanel {
@@ -464,12 +418,7 @@ const goTo = async (id: string) => {
   }
 
   .title {
-    font-size: clamp(2rem, 10vw, 2.8rem);
-  }
-
-  .photo,
-  .photoPh {
-    height: 220px;
+    font-size: clamp(2rem, 10vw, 2.9rem);
   }
 
   :deep(.swiper-pagination) {
