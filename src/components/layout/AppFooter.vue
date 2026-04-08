@@ -103,10 +103,24 @@ const WHATSAPP_DISPLAY =
 
     <div class="bottom">
       <div class="container bottomInner">
-        <span
-          >© {{ new Date().getFullYear() }} Aristas Odontología Integrada</span
-        >
-        <span class="muted">Todos los derechos reservados.</span>
+        <span>
+          © {{ new Date().getFullYear() }} Aristas Odontología Integrada
+        </span>
+
+        <div class="bottomLinks">
+          <span class="muted rights">Todos los derechos reservados</span>
+          <span class="muted separator">|</span>
+
+          <router-link class="footerPolicyLink" to="/politica-de-privacidad">
+            Política de Privacidad
+          </router-link>
+
+          <span class="muted separator">|</span>
+
+          <router-link class="footerPolicyLink" to="/politica-de-cookies">
+            Política de Cookies
+          </router-link>
+        </div>
       </div>
     </div>
   </footer>
@@ -232,7 +246,27 @@ const WHATSAPP_DISPLAY =
 }
 .muted {
   color: var(--muted);
-  font-weight: 600;
+  font-weight: 500;
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.separator {
+  display: inline;
+}
+
+.footerPolicyLink {
+  color: #3b5560;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footerPolicyLink:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 920px) {
@@ -244,8 +278,18 @@ const WHATSAPP_DISPLAY =
   .grid {
     grid-template-columns: 1fr;
   }
+
   .bottomInner {
     flex-direction: column;
+  }
+
+  .bottomLinks {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .separator {
+    display: none;
   }
 }
 </style>

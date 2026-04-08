@@ -201,8 +201,8 @@ const isActive = (id: string) => {
   height: 2px;
   width: 18px;
   background: #365a63;
-  margin: 4px auto;
   border-radius: 2px;
+  margin: 0;
 }
 .ctaMobile {
   display: none;
@@ -214,8 +214,10 @@ const isActive = (id: string) => {
   }
   .burger {
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 4px;
   }
 
   .nav {

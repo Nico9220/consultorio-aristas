@@ -2,6 +2,8 @@
 import RevealOnScroll from "../ui/RevealOnScroll.vue";
 import BaseButton from "../ui/BaseButton.vue";
 
+import hero4 from "../../assets/clinic/clinic-5.jpg";
+
 const puntos = [
   "Diagnóstico claro y plan de tratamiento",
   "Turnos organizados y seguimiento",
@@ -38,10 +40,17 @@ const puntos = [
 
         <RevealOnScroll :delay="520">
           <div class="actions">
-            <BaseButton to="/contacto" size="lg">Conocenos Más</BaseButton>
-            <BaseButton to="/turnos" variant="ghost" size="lg"
-              >Reservar Turno</BaseButton
+            <BaseButton :to="{ path: '/', hash: '#contacto' }" size="lg">
+              Conocenos Más
+            </BaseButton>
+
+            <BaseButton
+              :to="{ path: '/', hash: '#turnos' }"
+              variant="ghost"
+              size="lg"
             >
+              Reservar Turno
+            </BaseButton>
           </div>
         </RevealOnScroll>
       </div>
@@ -50,10 +59,7 @@ const puntos = [
         <RevealOnScroll :delay="160">
           <div class="photo card">
             <div class="ph">
-              <div class="glass">
-                <div class="label">Foto del equipo / consultorio</div>
-                <div class="sub">Placeholder</div>
-              </div>
+              <img :src="hero4" alt="Equipo Aristas" />
             </div>
           </div>
         </RevealOnScroll>
@@ -97,8 +103,7 @@ const puntos = [
       900px 520px at 90% 60%,
       rgba(31, 127, 134, 0.16),
       transparent 55%
-    ),
-    linear-gradient(180deg, rgba(233, 247, 248, 0.35), transparent 55%);
+    );
 }
 
 .wrap {
@@ -146,6 +151,8 @@ const puntos = [
 }
 
 .actions {
+  position: relative;
+  z-index: 3;
   margin-top: 18px;
   display: flex;
   gap: 12px;
@@ -164,13 +171,15 @@ const puntos = [
   height: 280px;
   border-radius: 16px;
   border: 1px solid rgba(31, 127, 134, 0.14);
-  background: linear-gradient(
-    135deg,
-    rgba(70, 188, 195, 0.22),
-    rgba(255, 255, 255, 0.85)
-  );
-  position: relative;
   overflow: hidden;
+  position: relative;
+}
+
+.ph img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .ph::after {
   content: "";
@@ -182,6 +191,7 @@ const puntos = [
     transparent 45%
   );
   transform: rotate(14deg);
+  pointer-events: none;
 }
 
 .glass {

@@ -7,9 +7,9 @@ import { scrollToId } from "@/utils/scrollToId";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 
-import hero1 from "../../assets/clinic/clinic-1.jpg";
-import hero2 from "../../assets/clinic/clinic-2.jpg";
-import hero3 from "../../assets/clinic/clinic-3.jpg";
+import hero1 from "../../assets/clinic/clinic-10.jpg";
+import hero2 from "../../assets/clinic/clinic-7.jpg";
+import hero3 from "../../assets/clinic/clinic-4.jpg";
 
 const router = useRouter();
 const modules = [Autoplay, Pagination, EffectFade];
@@ -61,7 +61,7 @@ const goTo = async (id: string) => {
 <template>
   <section id="inicio" class="hero snap-section">
     <Swiper
-      class="swiper"
+      class="heroSwiper"
       :modules="modules"
       :loop="true"
       effect="fade"
@@ -78,8 +78,8 @@ const goTo = async (id: string) => {
           <div class="overlay" />
           <div class="accent" />
 
-          <div class="container content">
-            <div class="left panel">
+          <div class="container heroInner">
+            <div class="heroPanel">
               <h1 class="title">{{ s.title }}</h1>
               <p class="subtitle">{{ s.subtitle }}</p>
 
@@ -104,7 +104,7 @@ const goTo = async (id: string) => {
               </div>
             </div>
 
-            <div class="right card mediaCard">
+            <div class="heroMedia card mediaCard">
               <div class="photoWrap">
                 <img
                   v-if="s.image"
@@ -113,8 +113,9 @@ const goTo = async (id: string) => {
                   alt="Consultorio Aristas"
                 />
                 <div v-else class="photoPh">
-                  <div class="caption">Foto real del consultorio (ideal)</div>
+                  <div class="caption">Foto real del consultorio</div>
                 </div>
+
                 <div class="badge">Consultorio</div>
               </div>
             </div>
@@ -127,29 +128,40 @@ const goTo = async (id: string) => {
 
 <style scoped>
 .hero {
-  height: calc(100vh - var(--header-h));
-  min-height: 560px;
-  padding: 0;
-  display: block;
+  position: relative;
+  min-height: calc(100svh - var(--header-h));
+  background: #eef5f6;
 }
 
-.swiper,
+@supports not (height: 100svh) {
+  .hero {
+    min-height: calc(100vh - var(--header-h));
+  }
+}
+
+.heroSwiper,
 :deep(.swiper-wrapper),
 :deep(.swiper-slide) {
   height: 100%;
 }
 
 .slide {
-  height: 100%;
+  position: relative;
+  min-height: calc(100svh - var(--header-h));
+  overflow: hidden;
   display: flex;
   align-items: center;
-  position: relative;
-  overflow: hidden;
   background-size: cover;
   background-position: center;
 }
 
-/* fallback (si no hay foto) */
+@supports not (height: 100svh) {
+  .slide {
+    min-height: calc(100vh - var(--header-h));
+  }
+}
+
+/* fallback visual */
 .slide.a {
   background-image:
     radial-gradient(
@@ -164,6 +176,7 @@ const goTo = async (id: string) => {
     ),
     linear-gradient(135deg, rgba(233, 247, 248, 0.9), rgba(246, 251, 252, 1));
 }
+
 .slide.b {
   background-image:
     radial-gradient(
@@ -178,6 +191,7 @@ const goTo = async (id: string) => {
     ),
     linear-gradient(135deg, rgba(246, 251, 252, 1), rgba(233, 247, 248, 0.9));
 }
+
 .slide.c {
   background-image:
     radial-gradient(
@@ -196,6 +210,7 @@ const goTo = async (id: string) => {
 .overlay {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background:
     radial-gradient(
       1200px 680px at 10% 30%,
@@ -225,102 +240,103 @@ const goTo = async (id: string) => {
       rgba(31, 127, 134, 0.18),
       transparent 60%
     );
-  filter: blur(0.2px);
 }
 
-.content {
+.heroInner {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 26px;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+  gap: 22px;
   align-items: center;
-  padding: 44px 0;
+  min-height: calc(100svh - var(--header-h));
+  padding-top: 40px;
+  padding-bottom: 54px;
 }
 
-.panel {
-  padding: 26px;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.78);
+@supports not (height: 100svh) {
+  .heroInner {
+    min-height: calc(100vh - var(--header-h));
+  }
+}
+
+.heroPanel {
+  max-width: 760px;
+  padding: 28px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
 }
 
 .title {
+  margin: 0 0 14px;
   font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(34px, 4.6vw, 58px);
-  margin: 0 0 12px;
+  font-size: clamp(3rem, 5vw, 5.3rem);
+  line-height: 0.95;
   color: #23464f;
+  text-wrap: balance;
 }
 
 .subtitle {
   margin: 0;
+  max-width: 52ch;
   color: #3b5560;
-  line-height: 1.7;
-  max-width: 55ch;
-  font-size: 16px;
+  font-size: 1.06rem;
+  line-height: 1.75;
 }
 
 .actions {
   display: flex;
-  gap: 12px;
   flex-wrap: wrap;
-  margin-top: 18px;
+  gap: 12px;
+  margin-top: 22px;
 }
 
 .chips {
-  margin-top: 16px;
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
 }
+
 .chip {
-  background: rgba(233, 247, 248, 0.85);
-  border: 1px solid rgba(31, 127, 134, 0.14);
   padding: 8px 12px;
   border-radius: 999px;
+  background: rgba(233, 247, 248, 0.9);
+  border: 1px solid rgba(31, 127, 134, 0.14);
   color: #2c5a63;
+  font-size: 0.84rem;
   font-weight: 750;
-  font-size: 13px;
 }
 
 .mediaCard {
   padding: 14px;
-  border-radius: 26px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
 }
+
 .photoWrap {
   position: relative;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 22px;
   border: 1px solid rgba(31, 127, 134, 0.14);
   background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
 }
-.photo {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
+
+.photo,
+.photoPh {
   display: block;
-  filter: saturate(1.05) contrast(1.02);
-}
-.badge {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid rgba(31, 127, 134, 0.16);
-  padding: 8px 10px;
-  border-radius: 14px;
-  font-weight: 800;
-  color: #2c5a63;
-  font-size: 13px;
+  width: 100%;
+  height: clamp(320px, 42vw, 470px);
+  object-fit: cover;
 }
 
 .photoPh {
-  height: 320px;
-  border-radius: 16px;
-  border: 1px solid rgba(31, 127, 134, 0.12);
   background: linear-gradient(
     135deg,
     rgba(70, 188, 195, 0.22),
@@ -328,28 +344,136 @@ const goTo = async (id: string) => {
   );
   position: relative;
 }
-.caption {
+
+.caption,
+.badge {
   position: absolute;
-  left: 12px;
-  bottom: 12px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(31, 127, 134, 0.16);
+  left: 14px;
+  bottom: 14px;
   padding: 8px 10px;
   border-radius: 14px;
-  font-weight: 700;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(31, 127, 134, 0.16);
   color: #2c5a63;
-  font-size: 13px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+:deep(.swiper-pagination) {
+  bottom: 16px;
+}
+
+:deep(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+}
+
+@media (max-width: 1180px) {
+  .heroInner {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.85fr);
+    gap: 18px;
+  }
+
+  .title {
+    font-size: clamp(2.7rem, 4.6vw, 4.4rem);
+  }
+
+  .photo,
+  .photoPh {
+    height: 360px;
+  }
 }
 
 @media (max-width: 860px) {
-  .content {
+  .hero {
+    min-height: auto;
+  }
+
+  .heroSwiper,
+  :deep(.swiper-wrapper),
+  :deep(.swiper-slide) {
+    height: auto;
+  }
+
+  .slide {
+    min-height: auto;
+    align-items: flex-start;
+  }
+
+  .heroInner {
     grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 18px;
+    align-items: start;
+    padding-top: 18px;
+    padding-bottom: 34px;
   }
-  .photo {
-    height: 240px;
+
+  .heroPanel {
+    max-width: none;
+    padding: 22px;
+    border-radius: 24px;
   }
+
+  .title {
+    font-size: clamp(2.2rem, 9vw, 3.2rem);
+    line-height: 1.02;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chips {
+    gap: 8px;
+  }
+
+  .chip {
+    max-width: 100%;
+    font-size: 0.78rem;
+    padding: 7px 10px;
+  }
+
+  .mediaCard {
+    padding: 10px;
+    border-radius: 24px;
+  }
+
+  .photo,
   .photoPh {
     height: 240px;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroInner {
+    padding-top: 14px;
+    padding-bottom: 28px;
+  }
+
+  .heroPanel {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .title {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+
+  .photo,
+  .photoPh {
+    height: 220px;
+  }
+
+  :deep(.swiper-pagination) {
+    bottom: 10px;
   }
 }
 </style>
