@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { nextTick } from "vue";
 import HomeView from "../views/HomeView.vue";
 import PoliticaDePrivacidadView from "@/components/home/PoliticaDePrivacidadView.vue";
 import PoliticaDeCookiesView from "@/components/home/PoliticaDeCookiesView.vue";
@@ -14,6 +13,7 @@ const router = createRouter({
     { path: "/servicios", redirect: { path: "/", hash: "#servicios" } },
     { path: "/turnos", redirect: { path: "/", hash: "#turnos" } },
     { path: "/contacto", redirect: { path: "/", hash: "#contacto" } },
+
     {
       path: "/politica-de-privacidad",
       name: "politica-privacidad",
@@ -21,14 +21,12 @@ const router = createRouter({
     },
     {
       path: "/politica-de-cookies",
-      name: "/politica-cookies",
+      name: "politica-cookies",
       component: PoliticaDeCookiesView,
     },
   ],
 
-  async scrollBehavior(to) {
-    await nextTick();
-
+  scrollBehavior(to) {
     requestAnimationFrame(() => {
       if (to.hash) {
         scrollToHash(to.hash, "smooth");
