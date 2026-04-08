@@ -69,8 +69,7 @@ const servicios: Servicio[] = [
 
 <style scoped>
 .section {
-  display: flex;
-  align-items: center;
+  display: block;
   padding: 56px 0;
 }
 
@@ -97,10 +96,8 @@ const servicios: Servicio[] = [
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(233, 247, 248, 0.9);
   border: 1px solid rgba(31, 127, 134, 0.16);
-
   color: #1f7f86;
 }
 
@@ -108,15 +105,41 @@ const servicios: Servicio[] = [
   margin: 12px 0 6px;
   font-size: 16px;
 }
+
 .d {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
   font-size: 14px;
-
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 32px 0 48px;
+    min-height: auto;
+  }
+
+  .grid {
+    margin-top: 18px;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .item {
+    padding: 16px;
+  }
+
+  .t {
+    font-size: 15px;
+  }
+
+  .d {
+    font-size: 13.5px;
+    -webkit-line-clamp: unset;
+  }
 }
 </style>

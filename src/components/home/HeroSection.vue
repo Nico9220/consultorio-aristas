@@ -19,7 +19,6 @@ type Slide = {
   subtitle: string;
   primary: { label: string; id: string };
   secondary: { label: string; id: string };
-  theme: "a" | "b" | "c";
   image?: string;
 };
 
@@ -30,7 +29,6 @@ const slides: Slide[] = [
       "Atención odontológica integral y de calidad para toda la familia.",
     primary: { label: "Reservar Turno", id: "turnos" },
     secondary: { label: "Ver Servicios", id: "servicios" },
-    theme: "a",
     image: hero1,
   },
   {
@@ -38,7 +36,6 @@ const slides: Slide[] = [
     subtitle: "Tratamientos modernos con un enfoque humano y personalizado.",
     primary: { label: "Consultanos", id: "contacto" },
     secondary: { label: "Reservar Turno", id: "turnos" },
-    theme: "b",
     image: hero2,
   },
   {
@@ -46,7 +43,6 @@ const slides: Slide[] = [
     subtitle: "Diagnóstico, seguimiento y opciones pensadas para vos.",
     primary: { label: "Nuestros Servicios", id: "servicios" },
     secondary: { label: "Contacto", id: "contacto" },
-    theme: "c",
     image: hero3,
   },
 ];
@@ -66,6 +62,7 @@ const goTo = async (id: string) => {
       :loop="true"
       effect="fade"
       :fadeEffect="{ crossFade: true }"
+      :autoHeight="true"
       :speed="900"
       :autoplay="{ delay: 6500, disableOnInteraction: false }"
       :pagination="{ clickable: true }"
@@ -73,7 +70,6 @@ const goTo = async (id: string) => {
       <SwiperSlide v-for="(s, i) in slides" :key="i">
         <div
           class="slide"
-          :class="s.theme"
           :style="s.image ? { backgroundImage: `url(${s.image})` } : undefined"
         >
           <div class="overlay" />
@@ -116,8 +112,8 @@ const goTo = async (id: string) => {
 <style scoped>
 .hero {
   position: relative;
-  background: #eef5f6;
   overflow: hidden;
+  background: transparent;
 }
 
 .heroSwiper {
@@ -127,7 +123,11 @@ const goTo = async (id: string) => {
 .heroSwiper,
 :deep(.swiper-wrapper),
 :deep(.swiper-slide) {
-  height: 100%;
+  width: 100%;
+}
+
+:deep(.swiper-slide) {
+  height: auto !important;
 }
 
 .slide {
@@ -146,36 +146,6 @@ const goTo = async (id: string) => {
   .slide {
     min-height: calc(100vh - var(--header-h));
   }
-}
-
-.slide.a {
-  background-image:
-    radial-gradient(
-      900px 420px at 20% 20%,
-      rgba(70, 188, 195, 0.2),
-      transparent 60%
-    ),
-    linear-gradient(135deg, rgba(233, 247, 248, 0.7), rgba(246, 251, 252, 0.7));
-}
-
-.slide.b {
-  background-image:
-    radial-gradient(
-      900px 420px at 10% 10%,
-      rgba(46, 168, 176, 0.18),
-      transparent 60%
-    ),
-    linear-gradient(135deg, rgba(246, 251, 252, 0.66), rgba(233, 247, 248, 0.66));
-}
-
-.slide.c {
-  background-image:
-    radial-gradient(
-      900px 420px at 30% 10%,
-      rgba(31, 127, 134, 0.18),
-      transparent 60%
-    ),
-    linear-gradient(135deg, rgba(233, 247, 248, 0.66), rgba(246, 251, 252, 0.66));
 }
 
 .overlay {
@@ -221,7 +191,7 @@ const goTo = async (id: string) => {
   justify-content: center;
   min-height: calc(100svh - var(--header-h));
   padding-top: 40px;
-  padding-bottom: 72px;
+  padding-bottom: 56px;
 }
 
 @supports not (height: 100svh) {
@@ -252,7 +222,7 @@ const goTo = async (id: string) => {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -271,7 +241,7 @@ const goTo = async (id: string) => {
 .subtitle {
   margin: 0 auto;
   max-width: 30ch;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 1.08rem;
   line-height: 1.75;
 }
@@ -304,7 +274,7 @@ const goTo = async (id: string) => {
 }
 
 :deep(.swiper-pagination) {
-  bottom: 18px;
+  bottom: 14px;
 }
 
 :deep(.swiper-pagination-bullet) {
@@ -323,14 +293,19 @@ const goTo = async (id: string) => {
 }
 
 @media (max-width: 860px) {
+  .hero {
+    min-height: calc(100svh - var(--header-h));
+  }
+
   .heroSwiper,
   :deep(.swiper-wrapper),
   :deep(.swiper-slide) {
-    height: auto;
+    height: calc(100svh - var(--header-h)) !important;
   }
 
   .slide {
-    min-height: auto;
+    min-height: calc(100svh - var(--header-h));
+    height: calc(100svh - var(--header-h));
     align-items: flex-start;
     justify-content: stretch;
     background-position: center;
@@ -351,7 +326,8 @@ const goTo = async (id: string) => {
   }
 
   .heroInner {
-    min-height: auto;
+    min-height: calc(100svh - var(--header-h));
+    height: calc(100svh - var(--header-h));
     align-items: flex-start;
     justify-content: stretch;
     padding-top: 18px;
@@ -404,10 +380,35 @@ const goTo = async (id: string) => {
     font-size: 0.78rem;
     padding: 7px 10px;
   }
+
+  :deep(.swiper-pagination) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 560px) {
+  .hero {
+    min-height: calc(100svh - var(--header-h));
+  }
+
+  .heroSwiper,
+  :deep(.swiper-wrapper),
+  :deep(.swiper-slide) {
+    height: calc(100svh - var(--header-h)) !important;
+  }
+
+  .slide {
+    min-height: calc(100svh - var(--header-h));
+    height: calc(100svh - var(--header-h));
+  }
+
   .heroInner {
+    min-height: calc(100svh - var(--header-h));
+    height: calc(100svh - var(--header-h));
     padding-top: 14px;
     padding-bottom: 44px;
   }
